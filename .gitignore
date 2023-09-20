@@ -34,3 +34,4 @@ test-output/
 
 **/certificates/*
 **/cdn/*
+**/database/*

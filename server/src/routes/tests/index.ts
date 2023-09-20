@@ -1,13 +1,28 @@
-import Database from "../../models/database";
+import db from "../../models/database";
 
 const express = require('express');
-
-const db = new Database("./src/database/data.pck");
 const router = express.Router();
 
-router.get('/', async (req: any, res: any) => {;
-    db.set('user1', { name: 'Alice', age: 30 })
-    res.send(db.get('user1'));
-});
+router.get('/', async (req: any, res: any) => {
+    try {
+        console.log(0);
 
+        await db.set({
+            user1: {
+                name: 'Alice',
+                age: 30
+            }
+        });
+
+        console.log(1);
+    
+        const userData = await db.get();
+        res.send(userData);
+    } catch (error) {
+        // Handle any errors here
+        console.error(error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+  
 module.exports = router;
